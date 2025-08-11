@@ -8,12 +8,12 @@ public class Main {
         List<String> ulohy = new ArrayList<>();
 
         while (true) {
-            vypisMenu();
+            vypisMenu(); // zobrazí hlavné menu
             System.out.print("Zvoľ možnosť: ");
             String volba = sc.nextLine().trim();
 
             switch (volba) {
-                case "1":
+                case "1": // pridanie úlohy
                     System.out.print("Zadaj novú úlohu: ");
                     String uloha = sc.nextLine().trim();
                     if (!uloha.isEmpty()) {
@@ -24,56 +24,45 @@ public class Main {
                     }
                     break;
 
-                case "2":
+                case "2":// zobrazenie úloh
                     vypisUlohy(ulohy);
                     break;
 
-                case "3":
+                case "3": // označenie úlohy ako hotovo
                     vypisUlohy(ulohy);
                     if (ulohy.isEmpty()) break;
-                    System.out.print("Číslo úlohy na označenie ako hotovo: ");
-                    String sIndexDone = sc.nextLine().trim();
-                    // TODO: Pridať kontrolu čísla (try-catch) – doplniť neskôr
-                    int idxDone = parseIndexOrMinusOne(sIndexDone) - 1;
-                    if (idxDone >= 0 && idxDone < ulohy.size()) {
-                        String povodna = ulohy.get(idxDone);
-                        if (!povodna.endsWith(" (hotovo)")) {
-                            ulohy.set(idxDone, povodna + " (hotovo)");
-                            System.out.println("Označené ako hotovo.");
-                        } else {
-                            System.out.println("Už je hotovo.");
-                        }
+                    int idxDone = readIndex(sc, ulohy.size(), "Číslo úlohy na označenie ako hotovo");
+                    if (idxDone == -1) break;
+                    String povodna = ulohy.get(idxDone);
+                    if (!povodna.endsWith(" (hotovo)")) {
+                        ulohy.set(idxDone, povodna + " (hotovo)");
+                        System.out.println("Označené ako hotovo.");
                     } else {
-                        System.out.println("Neplatný index.");
+                        System.out.println("Už je hotovo.");
                     }
                     break;
 
-                case "4":
+                case "4": // zmazanie úlohy
                     vypisUlohy(ulohy);
                     if (ulohy.isEmpty()) break;
-                    System.out.print("Číslo úlohy na zmazanie: ");
-                    String sIndexDel = sc.nextLine().trim();
-                    // TODO: Pridať kontrolu čísla (try-catch) – doplniť neskôr
-                    int idxDel = parseIndexOrMinusOne(sIndexDel) - 1;
-                    if (idxDel >= 0 && idxDel < ulohy.size()) {
-                        ulohy.remove(idxDel);
-                        System.out.println("Zmazané.");
-                    } else {
-                        System.out.println("Neplatný index.");
-                    }
+                    int idxDel = readIndex(sc, ulohy.size(), "Číslo úlohy na zmazanie");
+                    if (idxDel == -1) break;
+                    ulohy.remove(idxDel);
+                    System.out.println("Zmazané.");
                     break;
 
-                case "0":
+                case "0": // ukončenie aplikácie
                     System.out.println("Koniec. Pekný deň!");
                     return;
 
-                default:
+                default: // neplatná voľba
                     System.out.println("Neplatná voľba.");
             }
             System.out.println();
         }
     }
 
+    // vypíše textové menu
     private static void vypisMenu() {
         System.out.println("=== TODO MENU ===");
         System.out.println("1) Pridaj úlohu");
@@ -83,6 +72,7 @@ public class Main {
         System.out.println("0) Koniec");
     }
 
+    // vypíše zoznam úloh s číslovaním
     private static void vypisUlohy(List<String> ulohy) {
         if (ulohy.isEmpty()) {
             System.out.println("(Žiadne úlohy)");
@@ -93,12 +83,18 @@ public class Main {
         }
     }
 
-    // Pomocná funkcia – neskôr doplniť validáciu a ošetrenie chýb
-    private static int parseIndexOrMinusOne(String s) {
-        try {
-            return Integer.parseInt(s);
-        } catch (NumberFormatException e) {
-            return -1;
+    // načíta platný index úlohy od používateľa alebo -1 pre zrušenie výberu
+    private static int readIndex(Scanner sc, int max, String prompt) {
+        while (true) {
+            System.out.print(prompt + " (1-" + max + ", Enter = späť): ");
+            String s = sc.nextLine().trim();
+            if (s.isEmpty()) return -1; // zrušiť výber
+            try {
+                int n = Integer.parseInt(s);
+                if (n >= 1 && n <= max) return n - 1;
+            } catch (NumberFormatException ignored) {
+            }
+            System.out.println("Zadaj číslo v rozsahu 1-" + max + " alebo stlač Enter.");
         }
     }
 }
