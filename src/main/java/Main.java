@@ -5,96 +5,96 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        List<String> ulohy = new ArrayList<>();
+        List<String> tasks = new ArrayList<>();
 
         while (true) {
-            vypisMenu(); // zobrazí hlavné menu
-            System.out.print("Zvoľ možnosť: ");
-            String volba = sc.nextLine().trim();
+            printMenu(); // display main menu
+            System.out.print("Choose an option: ");
+            String choice = sc.nextLine().trim();
 
-            switch (volba) {
-                case "1": // pridanie úlohy
-                    System.out.print("Zadaj novú úlohu: ");
-                    String uloha = sc.nextLine().trim();
-                    if (!uloha.isEmpty()) {
-                        ulohy.add(uloha);
-                        System.out.println("Pridané.");
+            switch (choice) {
+                case "1": // add task
+                    System.out.print("Enter a new task: ");
+                    String task = sc.nextLine().trim();
+                    if (!task.isEmpty()) {
+                        tasks.add(task);
+                        System.out.println("Added.");
                     } else {
-                        System.out.println("Prázdny text sa nepridáva.");
+                        System.out.println("Empty text is not allowed.");
                     }
                     break;
 
-                case "2":// zobrazenie úloh
-                    vypisUlohy(ulohy);
+                case "2": // show tasks
+                    printTasks(tasks);
                     break;
 
-                case "3": // označenie úlohy ako hotovo
-                    vypisUlohy(ulohy);
-                    if (ulohy.isEmpty()) break;
-                    int idxDone = readIndex(sc, ulohy.size(), "Číslo úlohy na označenie ako hotovo");
+                case "3": // mark task as done
+                    printTasks(tasks);
+                    if (tasks.isEmpty()) break;
+                    int idxDone = readIndex(sc, tasks.size(), "Task number to mark as done");
                     if (idxDone == -1) break;
-                    String povodna = ulohy.get(idxDone);
-                    if (!povodna.endsWith(" (hotovo)")) {
-                        ulohy.set(idxDone, povodna + " (hotovo)");
-                        System.out.println("Označené ako hotovo.");
+                    String original = tasks.get(idxDone);
+                    if (!original.endsWith(" (done)")) {
+                        tasks.set(idxDone, original + " (done)");
+                        System.out.println("Marked as done.");
                     } else {
-                        System.out.println("Už je hotovo.");
+                        System.out.println("Already marked as done.");
                     }
                     break;
 
-                case "4": // zmazanie úlohy
-                    vypisUlohy(ulohy);
-                    if (ulohy.isEmpty()) break;
-                    int idxDel = readIndex(sc, ulohy.size(), "Číslo úlohy na zmazanie");
+                case "4": // delete task
+                    printTasks(tasks);
+                    if (tasks.isEmpty()) break;
+                    int idxDel = readIndex(sc, tasks.size(), "Task number to delete");
                     if (idxDel == -1) break;
-                    ulohy.remove(idxDel);
-                    System.out.println("Zmazané.");
+                    tasks.remove(idxDel);
+                    System.out.println("Deleted.");
                     break;
 
-                case "0": // ukončenie aplikácie
-                    System.out.println("Koniec. Pekný deň!");
+                case "0": // exit application
+                    System.out.println("Goodbye! Have a nice day!");
                     return;
 
-                default: // neplatná voľba
-                    System.out.println("Neplatná voľba.");
+                default: // invalid choice
+                    System.out.println("Invalid choice.");
             }
             System.out.println();
         }
     }
 
-    // vypíše textové menu
-    private static void vypisMenu() {
+    // print menu
+    private static void printMenu() {
         System.out.println("=== TODO MENU ===");
-        System.out.println("1) Pridaj úlohu");
-        System.out.println("2) Zobraz úlohy");
-        System.out.println("3) Označ ako hotovo");
-        System.out.println("4) Zmaž úlohu");
-        System.out.println("0) Koniec");
+        System.out.println("1) Add task");
+        System.out.println("2) Show tasks");
+        System.out.println("3) Mark as done");
+        System.out.println("4) Delete task");
+        System.out.println("0) Exit");
     }
 
-    // vypíše zoznam úloh s číslovaním
-    private static void vypisUlohy(List<String> ulohy) {
-        if (ulohy.isEmpty()) {
-            System.out.println("(Žiadne úlohy)");
+    // print list of tasks with numbering
+    private static void printTasks(List<String> tasks) {
+        if (tasks.isEmpty()) {
+            System.out.println("(No tasks)");
             return;
         }
-        for (int i = 0; i < ulohy.size(); i++) {
-            System.out.printf("%d) %s%n", i + 1, ulohy.get(i));
+        for (int i = 0; i < tasks.size(); i++) {
+            System.out.printf("%d) %s%n", i + 1, tasks.get(i));
         }
     }
 
-    // načíta platný index úlohy od používateľa alebo -1 pre zrušenie výberu
+    // read valid task index or -1 to cancel
     private static int readIndex(Scanner sc, int max, String prompt) {
         while (true) {
-            System.out.print(prompt + " (1-" + max + ", Enter = späť): ");
+            System.out.print(prompt + " (1-" + max + ", Enter = back): ");
             String s = sc.nextLine().trim();
-            if (s.isEmpty()) return -1; // zrušiť výber
+            if (s.isEmpty()) return -1; // cancel selection
             try {
                 int n = Integer.parseInt(s);
                 if (n >= 1 && n <= max) return n - 1;
             } catch (NumberFormatException ignored) {
             }
-            System.out.println("Zadaj číslo v rozsahu 1-" + max + " alebo stlač Enter.");
+            System.out.println("Enter a number in the range 1-" + max + " or press Enter.");
         }
     }
 }
