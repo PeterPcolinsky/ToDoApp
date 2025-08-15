@@ -13,7 +13,34 @@ A simple console-based task management application.
 1. Run the application.
 2. Choose an option from the menu (**1 – 4** or **0** to exit).
 3. Follow the instructions in the console.
+```text
+=== TODO MENU ===
+1) Add task
+2) Show tasks
+3) Mark as done
+4) Delete task
+0) Exit
+Choose an option: 1
+Enter a new task: Buy groceries
+Added.
 
+=== TODO MENU ===
+1) Add task
+2) Show tasks
+3) Mark as done
+4) Delete task
+0) Exit
+Choose an option: 2
+1) Buy groceries
+
+=== TODO MENU ===
+1) Add task
+2) Show tasks
+3) Mark as done
+4) Delete task
+0) Exit
+Choose an option:
+```
 ## 🛠 Technologies
 - **Java 23**
 - **Collections** (`List`, `ArrayList`)
