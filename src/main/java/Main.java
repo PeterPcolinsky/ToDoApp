@@ -14,14 +14,9 @@ public class Main {
 
             switch (choice) {
                 case "1": // add task
-                    System.out.print("Enter a new task: ");
-                    String task = sc.nextLine().trim();
-                    if (!task.isEmpty()) {
-                        tasks.add(task);
-                        System.out.println("Added.");
-                    } else {
-                        System.out.println("Empty text is not allowed.");
-                    }
+                    String task = readNonEmptyString(sc, "Enter a new task: ");
+                    tasks.add(task);
+                    System.out.println("Added.");
                     break;
 
                 case "2": // show tasks
@@ -95,6 +90,16 @@ public class Main {
             } catch (NumberFormatException ignored) {
             }
             System.out.println("Enter a number in the range 1-" + max + " or press Enter.");
+        }
+    }
+
+    // safe input of non-empty text (won’t crash, keeps asking until something is entered)
+    private static String readNonEmptyString(Scanner sc, String prompt) {
+        while (true) {
+            System.out.print(prompt);
+            String s = sc.nextLine().trim();
+            if (!s.isEmpty()) return s;
+            System.out.println("Empty text is not allowed.");
         }
     }
 }
