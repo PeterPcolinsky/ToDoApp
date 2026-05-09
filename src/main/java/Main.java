@@ -2,7 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * Simple console TODO application.
+ *
+ * <p>The application allows the user to:
+ * <ul>
+ *     <li>add tasks,</li>
+ *     <li>display all tasks,</li>
+ *     <li>mark tasks as completed,</li>
+ *     <li>delete tasks,</li>
+ *     <li>exit the application.</li>
+ * </ul>
+ *
+ * <p>The program runs in a loop until the user chooses to exit.
+ */
 public class Main {
+
+    /**
+     * Entry point of the application.
+     *
+     * <p>Handles user input, menu navigation,
+     * and task management operations.
+     *
+     * @param args command-line arguments (not used)
+     */
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         List<String> tasks = new ArrayList<>();
@@ -57,7 +80,9 @@ public class Main {
         }
     }
 
-    // print menu
+    /**
+     * Prints the main application menu.
+     */
     private static void printMenu() {
         System.out.println("=== TODO MENU ===");
         System.out.println("1) Add task");
@@ -67,39 +92,80 @@ public class Main {
         System.out.println("0) Exit");
     }
 
-    // print list of tasks with numbering
+    /**
+     * Prints all tasks with numbering.
+     *
+     * @param tasks list of tasks to display
+     */
     private static void printTasks(List<String> tasks) {
         if (tasks.isEmpty()) {
             System.out.println("(No tasks)");
             return;
         }
+
         for (int i = 0; i < tasks.size(); i++) {
             System.out.printf("%d) %s%n", i + 1, tasks.get(i));
         }
     }
 
-    // read valid task index or -1 to cancel
+    /**
+     * Reads and validates a task index from user input.
+     *
+     * <p>The method keeps asking until the user enters:
+     * <ul>
+     *     <li>a valid number within range, or</li>
+     *     <li>an empty input to cancel.</li>
+     * </ul>
+     *
+     * @param sc scanner used for reading input
+     * @param max maximum allowed index value
+     * @param prompt text displayed to the user
+     * @return zero-based index of the selected task,
+     *         or -1 if the user cancels
+     */
     private static int readIndex(Scanner sc, int max, String prompt) {
         while (true) {
             System.out.print(prompt + " (1-" + max + ", Enter = back): ");
             String s = sc.nextLine().trim();
-            if (s.isEmpty()) return -1; // cancel selection
+
+            if (s.isEmpty()) {
+                return -1; // cancel selection
+            }
+
             try {
                 int n = Integer.parseInt(s);
-                if (n >= 1 && n <= max) return n - 1;
+
+                if (n >= 1 && n <= max) {
+                    return n - 1;
+                }
+
             } catch (NumberFormatException ignored) {
             }
+
             System.out.println("Enter a number in the range 1-" + max + " or press Enter.");
         }
     }
 
-    // safe input of non-empty text (won’t crash, keeps asking until something is entered)
+    /**
+     * Reads a non-empty string from user input.
+     *
+     * <p>The method prevents empty input
+     * and keeps asking until valid text is entered.
+     *
+     * @param sc scanner used for reading input
+     * @param prompt text displayed to the user
+     * @return validated non-empty text
+     */
     private static String readNonEmptyString(Scanner sc, String prompt) {
         while (true) {
             System.out.print(prompt);
             String s = sc.nextLine().trim();
-            if (!s.isEmpty()) return s;
+
+            if (!s.isEmpty()) {
+                return s;
+            }
+
             System.out.println("Empty text is not allowed.");
         }
     }
-}
+}   
