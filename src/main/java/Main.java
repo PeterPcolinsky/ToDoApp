@@ -18,6 +18,8 @@ import java.util.Scanner;
  */
 public class Main {
 
+    private static final String DONE_SUFFIX = " (done)";
+
     /**
      * Entry point of the application.
      *
@@ -52,8 +54,9 @@ public class Main {
                     int idxDone = readIndex(sc, tasks.size(), "Task number to mark as done");
                     if (idxDone == -1) break;
                     String original = tasks.get(idxDone);
-                    if (!original.endsWith(" (done)")) {
-                        tasks.set(idxDone, original + " (done)");
+
+                    if (!original.endsWith(DONE_SUFFIX)) {
+                        tasks.set(idxDone, original + DONE_SUFFIX);
                         System.out.println("Marked as done.");
                     } else {
                         System.out.println("Already marked as done.");
@@ -76,6 +79,7 @@ public class Main {
                 default: // invalid choice
                     System.out.println("Invalid choice.");
             }
+
             System.out.println();
         }
     }
@@ -168,4 +172,4 @@ public class Main {
             System.out.println("Empty text is not allowed.");
         }
     }
-}   
+}
