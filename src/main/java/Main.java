@@ -18,6 +18,12 @@ import java.util.Scanner;
  */
 public class Main {
 
+    private static final String OPTION_EXIT = "0";
+    private static final String OPTION_ADD = "1";
+    private static final String OPTION_SHOW = "2";
+    private static final String OPTION_MARK_DONE = "3";
+    private static final String OPTION_DELETE = "4";
+
     private static final String DONE_SUFFIX = " (done)";
 
     /**
@@ -38,17 +44,17 @@ public class Main {
             String choice = sc.nextLine().trim();
 
             switch (choice) {
-                case "1": // add task
+                case OPTION_ADD: // add task
                     String task = readNonEmptyString(sc, "Enter a new task: ");
                     tasks.add(task);
                     System.out.println("Added.");
                     break;
 
-                case "2": // show tasks
+                case OPTION_SHOW: // show tasks
                     printTasks(tasks);
                     break;
 
-                case "3": // mark task as done
+                case OPTION_MARK_DONE: // mark task as done
                     printTasks(tasks);
                     if (tasks.isEmpty()) break;
                     int idxDone = readIndex(sc, tasks.size(), "Task number to mark as done");
@@ -63,7 +69,7 @@ public class Main {
                     }
                     break;
 
-                case "4": // delete task
+                case OPTION_DELETE: // delete task
                     printTasks(tasks);
                     if (tasks.isEmpty()) break;
                     int idxDel = readIndex(sc, tasks.size(), "Task number to delete");
@@ -72,7 +78,7 @@ public class Main {
                     System.out.println("Deleted.");
                     break;
 
-                case "0": // exit application
+                case OPTION_EXIT: // exit application
                     System.out.println("Goodbye! Have a nice day!");
                     return;
 
@@ -89,11 +95,11 @@ public class Main {
      */
     private static void printMenu() {
         System.out.println("=== TODO MENU ===");
-        System.out.println("1) Add task");
-        System.out.println("2) Show tasks");
-        System.out.println("3) Mark as done");
-        System.out.println("4) Delete task");
-        System.out.println("0) Exit");
+        System.out.println(OPTION_ADD + ") Add task");
+        System.out.println(OPTION_SHOW + ") Show tasks");
+        System.out.println(OPTION_MARK_DONE + ") Mark as done");
+        System.out.println(OPTION_DELETE + ") Delete task");
+        System.out.println(OPTION_EXIT + ") Exit");
     }
 
     /**
