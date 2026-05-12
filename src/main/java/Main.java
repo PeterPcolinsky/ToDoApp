@@ -26,6 +26,12 @@ public class Main {
 
     private static final String DONE_SUFFIX = " (done)";
 
+    private static final String MESSAGE_ADDED = "Added.";
+    private static final String MESSAGE_DELETED = "Deleted.";
+    private static final String MESSAGE_INVALID_CHOICE = "Invalid choice.";
+    private static final String MESSAGE_MARKED_DONE = "Marked as done.";
+    private static final String MESSAGE_ALREADY_DONE = "Already marked as done.";
+
     /**
      * Entry point of the application.
      *
@@ -47,7 +53,7 @@ public class Main {
                 case OPTION_ADD: // add task
                     String task = readNonEmptyString(sc, "Enter a new task: ");
                     tasks.add(task);
-                    System.out.println("Added.");
+                    System.out.println(MESSAGE_ADDED);
                     break;
 
                 case OPTION_SHOW: // show tasks
@@ -56,26 +62,43 @@ public class Main {
 
                 case OPTION_MARK_DONE: // mark task as done
                     printTasks(tasks);
-                    if (tasks.isEmpty()) break;
+
+                    if (tasks.isEmpty()) {
+                        break;
+                    }
+
                     int idxDone = readIndex(sc, tasks.size(), "Task number to mark as done");
-                    if (idxDone == -1) break;
+
+                    if (idxDone == -1) {
+                        break;
+                    }
+
                     String original = tasks.get(idxDone);
 
                     if (!original.endsWith(DONE_SUFFIX)) {
                         tasks.set(idxDone, original + DONE_SUFFIX);
-                        System.out.println("Marked as done.");
+                        System.out.println(MESSAGE_MARKED_DONE);
                     } else {
-                        System.out.println("Already marked as done.");
+                        System.out.println(MESSAGE_ALREADY_DONE);
                     }
+
                     break;
 
                 case OPTION_DELETE: // delete task
                     printTasks(tasks);
-                    if (tasks.isEmpty()) break;
+
+                    if (tasks.isEmpty()) {
+                        break;
+                    }
+
                     int idxDel = readIndex(sc, tasks.size(), "Task number to delete");
-                    if (idxDel == -1) break;
+
+                    if (idxDel == -1) {
+                        break;
+                    }
+
                     tasks.remove(idxDel);
-                    System.out.println("Deleted.");
+                    System.out.println(MESSAGE_DELETED);
                     break;
 
                 case OPTION_EXIT: // exit application
@@ -83,7 +106,7 @@ public class Main {
                     return;
 
                 default: // invalid choice
-                    System.out.println("Invalid choice.");
+                    System.out.println(MESSAGE_INVALID_CHOICE);
             }
 
             System.out.println();
