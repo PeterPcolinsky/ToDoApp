@@ -31,6 +31,8 @@ public class Main {
     private static final String MESSAGE_INVALID_CHOICE = "Invalid choice.";
     private static final String MESSAGE_MARKED_DONE = "Marked as done.";
     private static final String MESSAGE_ALREADY_DONE = "Already marked as done.";
+    private static final String MESSAGE_NO_TASKS = "(No tasks)";
+    private static final String MESSAGE_EMPTY_TEXT = "Empty text is not allowed.";
 
     /**
      * Entry point of the application.
@@ -132,7 +134,7 @@ public class Main {
      */
     private static void printTasks(List<String> tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("(No tasks)");
+            System.out.println(MESSAGE_NO_TASKS);
             return;
         }
 
@@ -198,7 +200,7 @@ public class Main {
                 return s;
             }
 
-            System.out.println("Empty text is not allowed.");
+            System.out.println(MESSAGE_EMPTY_TEXT);
         }
     }
 }
