@@ -75,15 +75,7 @@ public class Main {
                         break;
                     }
 
-                    String original = tasks.get(idxDone);
-
-                    if (!original.endsWith(DONE_SUFFIX)) {
-                        tasks.set(idxDone, original + DONE_SUFFIX);
-                        System.out.println(MESSAGE_MARKED_DONE);
-                    } else {
-                        System.out.println(MESSAGE_ALREADY_DONE);
-                    }
-
+                    markTaskAsDone(tasks, idxDone);
                     break;
 
                 case OPTION_DELETE: // delete task
@@ -112,6 +104,23 @@ public class Main {
             }
 
             System.out.println();
+        }
+    }
+
+    /**
+     * Marks the selected task as completed.
+     *
+     * @param tasks list of tasks
+     * @param index index of the selected task
+     */
+    private static void markTaskAsDone(List<String> tasks, int index) {
+        String original = tasks.get(index);
+
+        if (!original.endsWith(DONE_SUFFIX)) {
+            tasks.set(index, original + DONE_SUFFIX);
+            System.out.println(MESSAGE_MARKED_DONE);
+        } else {
+            System.out.println(MESSAGE_ALREADY_DONE);
         }
     }
 
@@ -164,7 +173,7 @@ public class Main {
             String s = sc.nextLine().trim();
 
             if (s.isEmpty()) {
-                return -1; // cancel selection
+                return -1;
             }
 
             try {
