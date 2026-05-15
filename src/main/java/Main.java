@@ -91,8 +91,7 @@ public class Main {
                         break;
                     }
 
-                    tasks.remove(idxDel);
-                    System.out.println(MESSAGE_DELETED);
+                    deleteTask(tasks, idxDel);
                     break;
 
                 case OPTION_EXIT: // exit application
@@ -122,6 +121,17 @@ public class Main {
         } else {
             System.out.println(MESSAGE_ALREADY_DONE);
         }
+    }
+
+    /**
+     * Deletes the selected task.
+     *
+     * @param tasks list of tasks
+     * @param index index of the selected task
+     */
+    private static void deleteTask(List<String> tasks, int index) {
+        tasks.remove(index);
+        System.out.println(MESSAGE_DELETED);
     }
 
     /**
