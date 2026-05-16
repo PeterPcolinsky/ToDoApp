@@ -53,9 +53,7 @@ public class Main {
 
             switch (choice) {
                 case OPTION_ADD: // add task
-                    String task = readNonEmptyString(sc, "Enter a new task: ");
-                    tasks.add(task);
-                    System.out.println(MESSAGE_ADDED);
+                    addTask(sc, tasks);
                     break;
 
                 case OPTION_SHOW: // show tasks
@@ -104,6 +102,18 @@ public class Main {
 
             System.out.println();
         }
+    }
+
+    /**
+     * Adds a new task to the task list.
+     *
+     * @param sc scanner used for reading input
+     * @param tasks list of tasks
+     */
+    private static void addTask(Scanner sc, List<String> tasks) {
+        String task = readNonEmptyString(sc, "Enter a new task: ");
+        tasks.add(task);
+        System.out.println(MESSAGE_ADDED);
     }
 
     /**
