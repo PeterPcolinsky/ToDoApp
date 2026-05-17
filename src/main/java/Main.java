@@ -34,6 +34,11 @@ public class Main {
     private static final String MESSAGE_NO_TASKS = "(No tasks)";
     private static final String MESSAGE_EMPTY_TEXT = "Empty text is not allowed.";
 
+    private static final String PROMPT_CHOOSE_OPTION = "Choose an option: ";
+    private static final String PROMPT_NEW_TASK = "Enter a new task: ";
+    private static final String PROMPT_MARK_DONE = "Task number to mark as done";
+    private static final String PROMPT_DELETE = "Task number to delete";
+
     /**
      * Entry point of the application.
      *
@@ -48,7 +53,7 @@ public class Main {
 
         while (true) {
             printMenu(); // display main menu
-            System.out.print("Choose an option: ");
+            System.out.print(PROMPT_CHOOSE_OPTION);
             String choice = sc.nextLine().trim();
 
             switch (choice) {
@@ -67,7 +72,7 @@ public class Main {
                         break;
                     }
 
-                    int idxDone = readIndex(sc, tasks.size(), "Task number to mark as done");
+                    int idxDone = readIndex(sc, tasks.size(), PROMPT_MARK_DONE);
 
                     if (idxDone == -1) {
                         break;
@@ -83,7 +88,7 @@ public class Main {
                         break;
                     }
 
-                    int idxDel = readIndex(sc, tasks.size(), "Task number to delete");
+                    int idxDel = readIndex(sc, tasks.size(), PROMPT_DELETE);
 
                     if (idxDel == -1) {
                         break;
@@ -111,7 +116,7 @@ public class Main {
      * @param tasks list of tasks
      */
     private static void addTask(Scanner sc, List<String> tasks) {
-        String task = readNonEmptyString(sc, "Enter a new task: ");
+        String task = readNonEmptyString(sc, PROMPT_NEW_TASK);
         tasks.add(task);
         System.out.println(MESSAGE_ADDED);
     }
