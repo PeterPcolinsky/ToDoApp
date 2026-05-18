@@ -66,19 +66,7 @@ public class Main {
                     break;
 
                 case OPTION_MARK_DONE: // mark task as done
-                    printTasks(tasks);
-
-                    if (tasks.isEmpty()) {
-                        break;
-                    }
-
-                    int idxDone = readIndex(sc, tasks.size(), PROMPT_MARK_DONE);
-
-                    if (idxDone == -1) {
-                        break;
-                    }
-
-                    markTaskAsDone(tasks, idxDone);
+                    handleMarkTaskAsDone(sc, tasks);
                     break;
 
                 case OPTION_DELETE: // delete task
@@ -107,6 +95,28 @@ public class Main {
 
             System.out.println();
         }
+    }
+
+    /**
+     * Handles the flow for marking a task as completed.
+     *
+     * @param sc scanner used for reading input
+     * @param tasks list of tasks
+     */
+    private static void handleMarkTaskAsDone(Scanner sc, List<String> tasks) {
+        printTasks(tasks);
+
+        if (tasks.isEmpty()) {
+            return;
+        }
+
+        int idxDone = readIndex(sc, tasks.size(), PROMPT_MARK_DONE);
+
+        if (idxDone == -1) {
+            return;
+        }
+
+        markTaskAsDone(tasks, idxDone);
     }
 
     /**
