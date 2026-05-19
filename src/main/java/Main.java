@@ -70,19 +70,7 @@ public class Main {
                     break;
 
                 case OPTION_DELETE: // delete task
-                    printTasks(tasks);
-
-                    if (tasks.isEmpty()) {
-                        break;
-                    }
-
-                    int idxDel = readIndex(sc, tasks.size(), PROMPT_DELETE);
-
-                    if (idxDel == -1) {
-                        break;
-                    }
-
-                    deleteTask(tasks, idxDel);
+                    handleDeleteTask(sc, tasks);
                     break;
 
                 case OPTION_EXIT: // exit application
@@ -117,6 +105,28 @@ public class Main {
         }
 
         markTaskAsDone(tasks, idxDone);
+    }
+
+    /**
+     * Handles the flow for deleting a task.
+     *
+     * @param sc scanner used for reading input
+     * @param tasks list of tasks
+     */
+    private static void handleDeleteTask(Scanner sc, List<String> tasks) {
+        printTasks(tasks);
+
+        if (tasks.isEmpty()) {
+            return;
+        }
+
+        int idxDel = readIndex(sc, tasks.size(), PROMPT_DELETE);
+
+        if (idxDel == -1) {
+            return;
+        }
+
+        deleteTask(tasks, idxDel);
     }
 
     /**
