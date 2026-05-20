@@ -62,7 +62,7 @@ public class Main {
                     break;
 
                 case OPTION_SHOW: // show tasks
-                    printTasks(tasks);
+                    handleShowTasks(tasks);
                     break;
 
                 case OPTION_MARK_DONE: // mark task as done
@@ -83,6 +83,15 @@ public class Main {
 
             System.out.println();
         }
+    }
+
+    /**
+     * Handles the flow for displaying tasks.
+     *
+     * @param tasks list of tasks
+     */
+    private static void handleShowTasks(List<String> tasks) {
+        printTasks(tasks);
     }
 
     /**
