@@ -33,6 +33,7 @@ public class Main {
     private static final String MESSAGE_ALREADY_DONE = "Already marked as done.";
     private static final String MESSAGE_NO_TASKS = "(No tasks)";
     private static final String MESSAGE_EMPTY_TEXT = "Empty text is not allowed.";
+    private static final String MESSAGE_GOODBYE = "Goodbye! Have a nice day!";
 
     private static final String PROMPT_CHOOSE_OPTION = "Choose an option: ";
     private static final String PROMPT_NEW_TASK = "Enter a new task: ";
@@ -74,7 +75,7 @@ public class Main {
                     break;
 
                 case OPTION_EXIT: // exit application
-                    System.out.println("Goodbye! Have a nice day!");
+                    System.out.println(MESSAGE_GOODBYE);
                     return;
 
                 default: // invalid choice
