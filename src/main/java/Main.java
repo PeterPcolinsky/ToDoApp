@@ -87,6 +87,20 @@ public class Main {
     }
 
     /**
+     * Checks whether the task list contains tasks.
+     *
+     * <p>The method also prints all tasks before checking.
+     *
+     * @param tasks list of tasks
+     * @return true if the task list is not empty,
+     *         otherwise false
+     */
+    private static boolean hasTasks(List<String> tasks) {
+        printTasks(tasks);
+        return !tasks.isEmpty();
+    }
+
+    /**
      * Handles the flow for displaying tasks.
      *
      * @param tasks list of tasks
@@ -102,9 +116,7 @@ public class Main {
      * @param tasks list of tasks
      */
     private static void handleMarkTaskAsDone(Scanner sc, List<String> tasks) {
-        printTasks(tasks);
-
-        if (tasks.isEmpty()) {
+        if (!hasTasks(tasks)) {
             return;
         }
 
@@ -124,9 +136,7 @@ public class Main {
      * @param tasks list of tasks
      */
     private static void handleDeleteTask(Scanner sc, List<String> tasks) {
-        printTasks(tasks);
-
-        if (tasks.isEmpty()) {
+        if (!hasTasks(tasks)) {
             return;
         }
 
