@@ -43,8 +43,7 @@ public class Main {
     /**
      * Entry point of the application.
      *
-     * <p>Handles user input, menu navigation,
-     * and task management operations.
+     * <p>Creates required objects and starts the application loop.
      *
      * @param args command-line arguments (not used)
      */
@@ -52,6 +51,16 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         List<String> tasks = new ArrayList<>();
 
+        runApplication(sc, tasks);
+    }
+
+    /**
+     * Runs the main application loop.
+     *
+     * @param sc scanner used for reading input
+     * @param tasks list of tasks
+     */
+    private static void runApplication(Scanner sc, List<String> tasks) {
         while (true) {
             printMenu(); // display main menu
             System.out.print(PROMPT_CHOOSE_OPTION);
